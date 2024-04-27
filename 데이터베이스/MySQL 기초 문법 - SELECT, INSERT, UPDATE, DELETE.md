@@ -130,3 +130,59 @@
     ```
     - WHERE절은 GROUP BY 연산보다 먼저 실행되고, 그 결과에 대해 GROUP BY가 적용되게 됨.
     - HVAGING 절은 그룹으로 묶여진 결과 집합에 조건이 적용되게 됨 => 집계함수도 사용가능함.
+
+## INSERT
+- INSERT INTO 키워드와 함께 추가할 테이블과 속성, VALUES 키워드와 함께 추가할 값
+```sql
+    INSERT INTO 테이블_이름[(속성_리스트)]
+    VALUES (데이터값_리스트);
+```
+- 만약 속성 리스트를 생략하면 데이터베이스의 스키마와 같은 순서대로 자동 대입됨.
+    ```sql
+    INSERT INTO 테이블_이름
+    VALUES (데이터값_리스트);
+    ```
+    - NULL을 저장할 수 있도록 설정된 필드, DEFAULT 제약 조건이 설정된 필드, AUTO_INCREMENT 키워드가 설정된 필드는 생략 가능
+- 예시
+    ```sql
+    INSERT INTO Reservation(ID, Name, ReserveDate, RoomNum)
+    VALUES(5, '이순신', '2016-02-16', 1108);
+    ```
+## UPDATE
+- UPDATE 문을 사용하여 레코드의 내용을 수정할 수 있음.
+    ```sql
+    UPDATE 테이블_이름
+    SET 속성_이름1 = 값1 , 속성_이름2 = 값2 ,…
+    WHERE 필드이름 = 데이터값
+    ```
+- WHERE 절의 조건을 만족하는 레코드의 값만을 수정
+    ```sql
+    UPDATE Reservation
+    SET RoomNum = 2002
+    WHERE Name = '홍길동';
+    -- 이름이 '홍길동'인 모든 레코드의 RoomNum 값을 2002로 변경
+    ```
+- WHERE 절을 생략하면, 모든 레코드의 값이 변경됨
+    ```sql
+    UPDATE Reservation
+    SET RoomNum = 2002;
+    -- Reservation 테이블의 모든 레코드의 RoomNum 값이 2002로 변경됨
+    ```
+## DELETE
+- DELETE 문을 사용해서 테이블의 레코드를 삭제할 수 있음
+    ```sql
+    DELETE FROM 테이블_이름
+    [WHERE 조건];
+    ```
+- WHERE 절의 조건을 만족하는 레코드의 값만을 수정
+    ```sql
+    DELETE FROM Reservation
+    WHERE RoomNum = 2002;
+    -- RoomNum이 2002인 레코드가 모두 삭제됨
+    ```
+- WHERE 절을 생략하면, 해당 테이블에 저장된 모든 데이터가 삭제됨
+    ```sql
+    DELETE FROM Reservation
+    -- Reservation 테이블에 있는 모든 내용이 삭제됨
+    ```
+    - DROP 명령문에서는 테이블이 아예 삭제되지만, DELET 명령어는 테이블은 남아있고 레코드만 지워짐.
